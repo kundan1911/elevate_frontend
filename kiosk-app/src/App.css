@@ -1,0 +1,32 @@
+body{
+  background-color: #e7e7e7;
+}
+
+.App-header {
+  /* border: 2px solid black; */
+  position: sticky;
+  top: 0;
+  display: flex;
+  background-color: whitesmoke;
+  min-height: 13vh;
+  align-items: center;
+  justify-content: space-between;
+  color:#1F3453;
+  background: #FFF;
+  box-shadow: 0px 3px 23px 2px rgba(0, 0, 0, 0.25);
+}
+
+.backButton{
+  width: 51px;
+  height: 51px;
+  position: absolute;
+  padding-left: 6%;
+  /* border: 2px solid black; */
+  cursor: pointer;
+}
+.logo{
+  /* border: 2px solid black; */
+  width: 503px;
+  height: 212px;
+  margin: 0 auto;
+}
