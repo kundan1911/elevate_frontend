@@ -5,6 +5,7 @@ import CallQueue from './MyComponents/QueuePage/callQueue';
 import AdminPage from './MyComponents/AdminPage/AdminPage';
 import AddUser from './MyComponents/AddUser/AddUser';
 import CardContainer from './MyComponents/cardContainer';
+import EditUser from './MyComponents/AddUser/EditUser';
 import {BrowserRouter as Router,
   Routes,
   Route} from 'react-router-dom';
@@ -23,6 +24,7 @@ function App() {
         <Route exact path="/admin" element={<AdminPage  setbackButton={setbackButton}/>}/>
         {/* <Route exact path="/admin" element={<CRUDPage  setbackButton={setbackButton}/>}/> */}
         <Route exact path="/admin/AddUser" element={<AddUser  setbackButton={setbackButton}/>}/>
+        <Route exact path="/admin/EditUser" element={<EditUser  setbackButton={setbackButton}/>}/>
       </Routes>
       <Footer/>
     </Router>

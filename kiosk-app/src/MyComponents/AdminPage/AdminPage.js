@@ -1,44 +1,75 @@
-// AdminPage.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './AdminPage.css'
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import './AdminPage.css';
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button } from "@chakra-ui/react";
 import UserData from './UserData'; // Adjust the import path based on your project structure
 
-const AdminPage = () => {
-  // Dummy data for demonstration
-  const dummyUsers = [
-    { id: 1, flatNo: '101', slotNo: 'A1', phoneNo: '1234567890', carNo: 'ABC123' },
-    { id: 2, flatNo: '102', slotNo: 'B1', phoneNo: '9876543210', carNo: 'XYZ789' },
-    { id: 3, flatNo: '103', slotNo: 'C1', phoneNo: '2345678901', carNo: 'PQR456' },
-    { id: 4, flatNo: '104', slotNo: 'D1', phoneNo: '8765432109', carNo: 'LMN987' },
-    { id: 5, flatNo: '105', slotNo: 'E1', phoneNo: '3456789012', carNo: 'DEF234' },
-    { id: 6, flatNo: '106', slotNo: 'F1', phoneNo: '2109876543', carNo: 'GHI567' },
-    { id: 7, flatNo: '107', slotNo: 'G1', phoneNo: '5432109876', carNo: 'JKL890' },
-    { id: 8, flatNo: '108', slotNo: 'H1', phoneNo: '7890123456', carNo: 'MNO123' },
-    { id: 9, flatNo: '109', slotNo: 'I1', phoneNo: '4321098765', carNo: 'UVW456' },
-    { id: 10, flatNo: '110', slotNo: 'J1', phoneNo: '9876543212', carNo: 'XYZ789' },
-    { id: 11, flatNo: '111', slotNo: 'K1', phoneNo: '1234567899', carNo: 'ABC321' },
-    { id: 12, flatNo: '112', slotNo: 'L1', phoneNo: '8765432101', carNo: 'PQR987' },
-    { id: 13, flatNo: '113', slotNo: 'M1', phoneNo: '2345678909', carNo: 'LMN654' },
-    { id: 14, flatNo: '114', slotNo: 'N1', phoneNo: '7890123450', carNo: 'DEF876' },
-    { id: 15, flatNo: '115', slotNo: 'O1', phoneNo: '5432109871', carNo: 'GHI234' },
-    { id: 16, flatNo: '116', slotNo: 'P1', phoneNo: '2109876542', carNo: 'JKL567' },
-    { id: 17, flatNo: '117', slotNo: 'Q1', phoneNo: '3456789015', carNo: 'MNO890' },
-    { id: 18, flatNo: '118', slotNo: 'R1', phoneNo: '4321098768', carNo: 'UVW123' },
-    { id: 19, flatNo: '119', slotNo: 'S1', phoneNo: '9876543214', carNo: 'XYZ456' },
-    { id: 20, flatNo: '120', slotNo: 'T1', phoneNo: '1234567898', carNo: 'ABC987' },
-    { id: 21, flatNo: '121', slotNo: 'U1', phoneNo: '8765432105', carNo: 'PQR321' },
-    { id: 22, flatNo: '122', slotNo: 'V1', phoneNo: '2345678905', carNo: 'LMN678' },
-    // Add more dummy data as needed
-  ];
+const AdminPage = (props) => {
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState({
+    name: '',
+    car_number: ''
+  });
+  const [showModal, setShowModal] = useState(false);
+  const navigator = useNavigate();
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/get_all_car_owner')
+      .then(response => {
+        console.log(response);
+        setUsers(response.data.data); // Assuming response.data is an array of user objects
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []); // Empty dependency array to run the effect only once after initial render
 
+  props.setbackButton(true)
+  // Dummy functions for demonstration
   const handleEdit = (user) => {
     console.log('Edit user:', user);
+    navigator(`/admin/EditUser?car_no=${user}`)
+
+  };
+  const handleDelete = (user) => {
+    setSelectedUser(user);
+    setShowModal(true);
   };
 
-  const handleDelete = (userId) => {
-    console.log('Delete user with ID:', userId);
+  const confirmDelete = () => {
+    axios.post('http://127.0.0.1:8000/delete_owner_data', { OwnerToDeleteCarNo: selectedUser.car_number })
+      .then(response => {
+        console.log(response);
+        // Refresh users after deletion
+        axios.get('http://127.0.0.1:8000/get_all_car_owner')
+          .then(response => {
+            setUsers(response.data.data);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    setShowModal(false);
   };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedUser(null);
+  };
+
+  // const handleDelete = (userId) => {
+  //   console.log('Delete user with ID:', userId);
+  //   axios.post('http://127.0.0.1:8000/delete_owner_data',{ OwnerToDeleteCarNo:userId }
+  //   ).then(response => {  
+  //     console.log(response);
+  //   } ).catch(error => {    
+  //     console.log(error);
+  //   })
+  // };
 
   return (
     <div>
@@ -48,7 +79,7 @@ const AdminPage = () => {
       </div>
       <div className="users-grid">
         <div className='titles'>
-          <p className='table-headings'>Flat No.</p>
+          <p className='table-headings'>Name</p>
           <p className='table-headings'>Slot No.</p>
           <p className='table-headings' id='Phone'>Phone No.</p>
           <p className='table-headings'>Car No.</p>
@@ -56,11 +87,27 @@ const AdminPage = () => {
         </div>
         {/* Render UserData component for each user */}
         <div className="user-data">
-          {dummyUsers.map((user) => (
-          <UserData key={user.id} user={user} onEdit={handleEdit} onDelete={handleDelete} />
+          {users.map((user) => (
+            <UserData key={user.id} user={user} onEdit={()=>{handleEdit(user.car_number)}} onDelete={()=>{handleDelete(user)}} />
           ))}
         </div>
       </div>
+      <Modal isOpen={showModal} onClose={closeModal}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Delete User</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+  Are you sure you want to delete user <strong>{selectedUser && selectedUser.name}</strong> with car number <strong>{selectedUser && selectedUser.car_number}</strong>?
+</ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={confirmDelete}>
+              Confirm
+            </Button>
+            <Button onClick={closeModal}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

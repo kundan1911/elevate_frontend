@@ -17,10 +17,11 @@ body{
 }
 
 .backButton{
-  width: 51px;
-  height: 51px;
+  width: 71px;
+  height: 71px;
   position: absolute;
-  padding-left: 6%;
+  left:50px;
+  /* padding-left: 6%; */
   /* border: 2px solid black; */
   cursor: pointer;
 }

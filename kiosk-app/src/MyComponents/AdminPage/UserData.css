@@ -7,7 +7,9 @@
     border-radius: 11px;
 }
 
-
+.editButton,.deleteButton{
+    cursor: pointer;
+}
 .data-item{
     width: 20%;
     text-align: center;

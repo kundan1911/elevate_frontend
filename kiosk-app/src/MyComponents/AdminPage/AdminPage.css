@@ -59,7 +59,7 @@
         height: 68vh;
         overflow: hidden;
         overflow-y: scroll;
-        margin-right: 0px;
+        margin-right: 10px;
     }
 
     ::-webkit-scrollbar{

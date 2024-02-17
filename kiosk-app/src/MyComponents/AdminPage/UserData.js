@@ -2,20 +2,20 @@ import React from 'react';
 import './UserData.css'
 
 const UserData = ({ user, onEdit, onDelete }) => {
-  const { flatNo, slotNo, phoneNo, carNo } = user;
+  const { name, parking_slot_number, phone_number, car_number } = user;
 
   return (
     <div className="user-row">
-      <p className='data-item'>{flatNo}</p>
-      <p className='data-item'>{slotNo}</p>
-      <p className='data-item'>{phoneNo}</p>
-      <p className='data-item'>{carNo}</p>
+      <p className='data-item'>{name}</p>
+      <p className='data-item'>{parking_slot_number}</p>
+      <p className='data-item'>{phone_number}</p>
+      <p className='data-item'>{car_number}</p>
 
       <div className="user-actions">
-        <div className='editButton'> 
+        <div className='editButton' onClick={onEdit}> 
             <img src="/images/edit_button.png" alt="??"/>
         </div>
-        <div className='deleteButton'> 
+        <div className='deleteButton'  onClick={onDelete}> 
             <img src="/images/Delete_button.png" alt="??"/>
         </div>  
       </div>
