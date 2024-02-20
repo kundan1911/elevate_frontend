@@ -1,0 +1,96 @@
+/* AddUserPage.css */
+.add-user-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+  
+  .add-user-box {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    border-radius: 26px;
+    background: #FFF;
+    box-shadow: 4px 4px 21.7px 3px rgba(0, 0, 0, 0.25);
+    width: 67vw;
+    height: 746px;
+    flex-shrink: 0;
+    background-color: white;
+    padding: 50px;
+  }
+  
+  .inputs{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .add-user-heading {
+    text-align: center ;
+    color: #1F3453;
+    font-size: 50px;
+  }
+  
+  .input-container {
+    position: relative;
+    margin: 20px 0px;
+    /* margin-bottom: 15px; */
+  }
+
+  .input-container label{
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+    font-size: 30px;
+    padding: 0 10px;
+    pointer-events: none;
+    transition: .3s;
+  }
+  
+  .input-container input {
+    width: 97%;
+    font-size: 30px;
+    padding: 8px;
+    /* margin-top: 5px; */
+    border-radius: 12px;
+    outline: none;
+    border: 1px solid #1F3453;
+    background: transparent;
+  }
+  .input-container input:valid ~ label,
+  .input-container input:focus ~ label{
+    top: -5px;
+    font-size: 20px;
+    background-color: white;
+  }
+
+  .button-container {
+    margin: 10px 0px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .cancel-button{
+    padding: 10px;
+    width: 48%;
+    background-color: #FFF;
+    border: 2px solid #F7921C;
+    font-size: 35px;
+    color: #F7921C;
+    border-radius: 10px;
+  }
+
+  .add-button {
+    background-color:#F7921C ;
+    border: none;
+    border-radius: 10px;
+    color: #FFF;
+    font-size: 35px;
+    padding: 10px;
+    width: 48%;
+    cursor: pointer;
+  }
+  
