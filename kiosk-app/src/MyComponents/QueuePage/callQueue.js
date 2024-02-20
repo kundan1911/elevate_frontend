@@ -9,22 +9,23 @@ const CallQueue = (props) => {
   const toast = useToast();
 
   useEffect(() => {
-    const newSocket = new WebSocket('ws://localhost:8000/alerts'); // Replace with your server URL
+    const newSocket = new WebSocket('ws://localhost:8000/ws/alerts/'); // Replace with your server URL
 
-    newSocket.addEventListener('message', (event) => {
+    newSocket.onmessage=function (event){
       const data = JSON.parse(event.data);
-
+        console.log(data);
   // Your success toast and logic
-  console.log('Master Online');
+  // console.log('Master Online');
+  if(data?.type==="NewOwnerCall"){
   toast({
-    title: "success",
+    title: "type: "+data.type+"    phoneNo:"+data.phone_number,
     status: "success",
     duration: 5000,
     isClosable: true,
     position: "top-right", // Set position to "top-right"
   });
-  
-    });
+}
+    };
     setSocket(newSocket);
 
     return () => {
