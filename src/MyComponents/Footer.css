@@ -1,0 +1,51 @@
+.footer {
+    width: 100%;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    justify-content: space-between;
+    align-items: center;
+    height: 7vh;
+    background-color: #1F3453;
+    box-shadow: 0px -10px 18.3px 5px rgba(0, 0, 0, 0.25);
+  }
+  
+  .contact {
+    margin-left: 5vw;
+    display: flex;
+    align-items: center;
+    gap: 1.5vw;
+  }
+  
+  .phone {
+    /* font-family:'Courier New', Courier, monospace; */
+    font-size: 32.5px;
+    color: #E7E7E7;
+    /* text-decoration: underline; */
+    /* Add any additional styles for the phone number */
+  }
+  
+  @import url('https://fonts.googleapis.com/css2?family=Kanit&family=Roboto:wght@300&display=swap');
+  
+  .adminButton {
+    display: flex;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #E7E7E7;
+    box-shadow: 5px 5px 12.3px 0px rgba(0, 0, 0, 0.25);
+    border: none;
+    cursor: pointer;
+    margin-right: 5%;
+    padding: 10px 20px;
+    gap: 1vw;
+    align-items: center;
+    text-decoration: none;
+    /* Style your admin button here */
+  }
+
+  .adminText{
+    font-family: 'Kanit', sans-serif;
+    font-weight: bold;
+    font-size: 1.7vh;
+    color: #1F3453;
+  }

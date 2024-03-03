@@ -1,0 +1,44 @@
+/* CardContainer.css */
+
+.card-container {
+    position: relative;
+    width: 300px; /* Set your desired width */
+    height: 400px; /* Set your desired height */
+    overflow-y: hidden;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #888 #f0f0f0; /* For Firefox */
+  
+    /* For WebKit browsers (Chrome, Safari) */
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: #888;
+    }
+  
+    &::-webkit-scrollbar-track {
+      background-color: #f0f0f0;
+    }
+  }
+  
+  .card {
+    margin: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+  }
+  
+  .vertical-scrollbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 100%;
+    background-color: #ccc;
+    cursor: grab;
+  }
+  
+  .vertical-scrollbar:active {
+    cursor: grabbing;
+  }
+  
