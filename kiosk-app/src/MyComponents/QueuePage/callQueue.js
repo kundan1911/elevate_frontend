@@ -26,6 +26,7 @@ const CallQueue = (props) => {
     isClosable: true,
     position: "top-right", // Set position to "top-right"
   });
+  console.log(data)
   setCallQueue(prevCallQueue => [...prevCallQueue, {data}]);
 }
 else{
@@ -36,6 +37,8 @@ else{
     isClosable: true,
     position: "top-right", // Set position to "top-right"
   });
+  console.log(data)
+  setCallQueue(prevCallQueue => [...prevCallQueue, {data}]);
 }
     };
     setSocket(newSocket);
@@ -59,7 +62,7 @@ else{
     console.log('Done with call:', id);
 
 axios.post('http://127.0.0.1:8000/handle_incoming_call', {
-      phone_number: '23432',
+      phone_number: '4543534535',
       message: "4584859489ijkgjkjgk"
     })
     .then(response => {
