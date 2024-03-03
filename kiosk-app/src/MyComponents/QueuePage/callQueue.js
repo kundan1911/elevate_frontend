@@ -7,7 +7,9 @@ import { useToast } from "@chakra-ui/react";
 const CallQueue = (props) => {
   const [socket, setSocket] = React.useState(null);
   const toast = useToast();
-
+  const [callQueue, setCallQueue] = useState([
+    { id: 1, slotNo: '506' },
+  ]);
   useEffect(() => {
     const newSocket = new WebSocket('ws://localhost:8000/ws/alerts/'); // Replace with your server URL
 
@@ -24,31 +26,40 @@ const CallQueue = (props) => {
     isClosable: true,
     position: "top-right", // Set position to "top-right"
   });
+  setCallQueue(prevCallQueue => [...prevCallQueue, {data}]);
+}
+else{
+  toast({
+    title: "type: "+data.type+"    phoneNo:"+data.phone_number,
+    status: "error",
+    duration: 5000,
+    isClosable: true,
+    position: "top-right", // Set position to "top-right"
+  });
 }
     };
     setSocket(newSocket);
+
+    axios.get('http://127.0.0.1:8000/get_all_received_call')
+    .then(response => {
+      console.log(response.data);
+      setCallQueue([...response.data.data]);
+    })
+    .catch(error => {
+      console.error(error);
+    });
 
     return () => {
       newSocket.close();
     };
   }, []);
-  const [callQueue, setCallQueue] = useState([
-    { id: 1, slotNo: '506' },
-    { id: 2, slotNo: '304' },
-    { id: 3, slotNo: '201' },
-    { id: 4, slotNo: '201' },
-    { id: 5, slotNo: '201' },
-    { id: 6, slotNo: '201' },
-    { id: 7, slotNo: '201' },
-    { id: 8, slotNo: '201' },
-    { id: 9, slotNo: '201' },
-  ]);
+  
   props.setbackButton(false)
   const handleDone = id => {
     console.log('Done with call:', id);
 
-axios.post('http://127.0.0.1:8000/websocketTestingview', {
-      phone_number: '86858466',
+axios.post('http://127.0.0.1:8000/handle_incoming_call', {
+      phone_number: '23432',
       message: "4584859489ijkgjkjgk"
     })
     .then(response => {
@@ -65,11 +76,11 @@ axios.post('http://127.0.0.1:8000/websocketTestingview', {
   return (
     <div className="call-queue">
       <div className="call-blocks">
-        {callQueue.map(call => (
+        {callQueue.map((call,index) => (
           <CallBlock
-            key={call.id}
-            slotNo={call.slotNo}
-            onDone={() => handleDone(call.id)}
+            key={index}
+            slotNo={call.parking_slot_number}
+            onDone={() => handleDone(index)}
           />
         ))}
       </div>
