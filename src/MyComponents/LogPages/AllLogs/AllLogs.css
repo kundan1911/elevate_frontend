@@ -1,0 +1,30 @@
+.log-titles{
+    padding-right: 40px;
+    border-bottom: 2px solid #656464;
+    display: flex;
+    justify-content: space-around;
+}
+
+.table-headings{
+    padding-inline: 1vw;
+    display: flex;
+    color: #656464;
+    text-align: center;
+    margin-block: 15px;
+    font-size: 30px;
+    /* width: 20%; */
+}
+
+#big.table-headings{
+    flex: 1.3;
+}
+#smol.table-headings{
+    flex: 1;
+}
+#med.table-headings{
+    flex: 1.2;
+}
+
+.date-selector{
+    display: absolute;
+}

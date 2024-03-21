@@ -32,7 +32,7 @@
 /* individual call-block's css starts here */
   .call-block {
     background-color: white;
-    height: 230px;
+    /* height: 230px; */
     display: flex;
     justify-content: space-around;
     flex-direction: column;

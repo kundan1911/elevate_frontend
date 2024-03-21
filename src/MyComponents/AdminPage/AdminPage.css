@@ -42,21 +42,37 @@
         justify-content: space-around;
     }
 
-    .table-headings{
-        color: #656464;
-        text-align: center;
-        margin: 15px;
-        font-size: 33.275px;
-        width: 20%;
+    #Phone{
+        justify-content: left;
     }
 
+    .admin-table-headings{
+        padding-inline: 1vw;
+        justify-content: left;
+        color: #656464;
+        margin-block: 15px;
+        font-size: 30px;
+    }
+
+    #smol.admin-table-headings{
+        flex: 0.7;
+    }
+    #med.admin-table-headings{
+        flex: 1;
+    }
+    #xs.admin-table-headings{
+        flex: 0.5;
+    }
+    #actions.table-headings{
+        justify-content: center;
+    }
     #Phone{
         text-align: justify;
     }
 
     .user-data{
         padding-right: 20px;
-        height: 68vh;
+        height: 66vh;
         overflow: hidden;
         overflow-y: scroll;
         margin-right: 10px;

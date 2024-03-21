@@ -26,6 +26,9 @@ const AdminPage = (props) => {
   }, []); // Empty dependency array to run the effect only once after initial render
 
   props.setbackButton(true)
+  props.setadminButton(false)
+  props.setlogButton(true)
+  props.sethomeButton(true)
   // Dummy functions for demonstration
   const handleEdit = (user) => {
     console.log('Edit user:', user);
@@ -79,11 +82,11 @@ const AdminPage = (props) => {
       </div>
       <div className="users-grid">
         <div className='titles'>
-          <p className='table-headings'>Name</p>
-          <p className='table-headings'>Slot No.</p>
-          <p className='table-headings' id='Phone'>Phone No.</p>
-          <p className='table-headings'>Car No.</p>
-          <p className='table-headings'>Actions</p>
+          <div className='admin-table-headings' id='med'>Name</div>
+          <div className='admin-table-headings' id='xs'>Slot No.</div>
+          <div className='admin-table-headings' id='med'>Phone No.</div>
+          <div className='admin-table-headings' id='med'>Car No.</div>
+          <div className='admin-table-headings' id='smol'>Actions</div>
         </div>
         {/* Render UserData component for each user */}
         <div className="user-data">
@@ -101,7 +104,8 @@ const AdminPage = (props) => {
   Are you sure you want to delete user <strong>{selectedUser && selectedUser.name}</strong> with car number <strong>{selectedUser && selectedUser.car_number}</strong>?
 </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={confirmDelete}>
+
+            <Button colorScheme="orange" mr={3} onClick={confirmDelete}>
               Confirm
             </Button>
             <Button onClick={closeModal}>Cancel</Button>

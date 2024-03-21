@@ -6,12 +6,12 @@ const UserData = ({ user, onEdit, onDelete }) => {
 
   return (
     <div className="user-row">
-      <p className='data-item'>{name}</p>
-      <p className='data-item'>{parking_slot_number}</p>
-      <p className='data-item'>{phone_number}</p>
-      <p className='data-item'>{car_number}</p>
+      <div className='data-item' id='med'>{name}</div>
+      <div className='data-item' id='smol'>{parking_slot_number}</div>
+      <div className='data-item' id='med'>{phone_number}</div>
+      <div className='data-item' id='med'>{car_number}</div>
 
-      <div className="user-actions">
+      <div className="user-actions"id='smol'>
         <div className='editButton' onClick={onEdit}> 
             <img src="/images/edit_button.png" alt="??"/>
         </div>

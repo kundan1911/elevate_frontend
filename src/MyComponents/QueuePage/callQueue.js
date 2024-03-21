@@ -15,6 +15,7 @@ const CallQueue = (props) => {
 
     newSocket.onmessage=function (event){
       const data = JSON.parse(event.data);
+      console.log('dfkdjddfd')
         console.log(data);
   // Your success toast and logic
   // console.log('Master Online');
@@ -37,8 +38,9 @@ else{
     isClosable: true,
     position: "top-right", // Set position to "top-right"
   });
-  console.log(data)
-  setCallQueue(prevCallQueue => [...prevCallQueue, {data}]);
+  console.log("call data:",data.phone_number)
+  if(data.phone_number)
+  setCallQueue(prevCallQueue => [...prevCallQueue, data.phone_number]);
 }
     };
     setSocket(newSocket);
@@ -58,12 +60,15 @@ else{
   }, []);
   
   props.setbackButton(false)
-  const handleDone = id => {
-    console.log('Done with call:', id);
+  props.setlogButton(false)
+  props.setadminButton(true)
+  props.sethomeButton(false)
+  const handleDone = Calldata => {
+    console.log('Done with call:', Calldata);
 
-axios.post('http://127.0.0.1:8000/handle_incoming_call', {
-      phone_number: '4543534535',
-      message: "4584859489ijkgjkjgk"
+axios.post('http://127.0.0.1:8000/send_car_ready_sms', {
+      phone_number: Calldata.phone_number,
+      parking_slot_number:Calldata.parking_slot_number
     })
     .then(response => {
       console.log(response.data);
@@ -72,7 +77,7 @@ axios.post('http://127.0.0.1:8000/handle_incoming_call', {
       console.error(error);
     });
 
-    const updatedQueue = callQueue.filter(call => call.id !== id);
+    const updatedQueue = callQueue.filter(call => call.phone_number !== Calldata.phone_number);
     setCallQueue(updatedQueue);
   };
 
@@ -83,7 +88,7 @@ axios.post('http://127.0.0.1:8000/handle_incoming_call', {
           <CallBlock
             key={index}
             slotNo={call.parking_slot_number}
-            onDone={() => handleDone(index)}
+            onDone={() => handleDone(call)}
           />
         ))}
       </div>

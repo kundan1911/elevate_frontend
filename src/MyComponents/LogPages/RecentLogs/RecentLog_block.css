@@ -1,4 +1,4 @@
-.user-row{
+.log-row{
     display: flex;
     justify-content: space-around;
     font-size: 30px;
@@ -7,35 +7,37 @@
     border-radius: 11px;
 }
 
-.editButton,.deleteButton{
+.logButton{
     cursor: pointer;
 }
-.data-item{
+
+.recent-data-item{
     display: flex;
-    padding-inline: 1vw;
-    width: 20%;
-    /* text-align: center; */
+    /* text-align: justify; */
     margin-block: 20px;
     align-items: center;
-    justify-content: left;
+    padding-inline: 1vw;
 }
 
-#med.data-item{
+#smol.recent-data-item{
     flex: 1;
 }
 
-#smol.data-item{
-    flex: 0.5;
-}
-#smol.user-actions{
-    flex: 0.7;
+#med.recent-data-item{
+    flex: 1.2;
 }
 
-.user-actions{
-    padding-inline: 1vw;
-    width: 20%;
+#xs.undoBtn{
+    flex: 0.5;
+}
+
+
+.undoBtn{
+    /* width: 20%; */
     display: flex;
     align-items: center;
     /* gap: 20px; */
     justify-content: space-evenly;
+    padding-inline: 1vw;
 }
+

@@ -1,14 +1,14 @@
 body{
-  background-color: #e7e7e7;
+  background-color: #f0f0f0;
 }
 
 .App-header {
   /* border: 2px solid black; */
+  display: flexbox;
   position: sticky;
   top: 0;
   display: flex;
   background-color: whitesmoke;
-  min-height: 13vh;
   align-items: center;
   justify-content: space-between;
   color:#1F3453;
@@ -16,18 +16,37 @@ body{
   box-shadow: 0px 3px 23px 2px rgba(0, 0, 0, 0.25);
 }
 
-.backButton{
-  width: 71px;
-  height: 71px;
+.home-Btn{
+  display: flex;
+  width: auto;
+  height: auto;
   position: absolute;
-  left:50px;
+  right:4vh;
+  cursor: pointer;
+}
+
+.backButton{
+  display: flex;
+  width: auto;
+  height: auto;
+  position: absolute;
+  left:4vh;
   /* padding-left: 6%; */
   /* border: 2px solid black; */
   cursor: pointer;
 }
+#homeButtonImage{
+  height: 3vh;
+}
+
+#ButtonImage{
+  height: 3vh;
+}
 .logo{
   /* border: 2px solid black; */
-  width: 503px;
-  height: 212px;
+  padding: 1vh;
+  display: flex;
+  width: auto;
+  height: 13vh;
   margin: 0 auto;
 }
