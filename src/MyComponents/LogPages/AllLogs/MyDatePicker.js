@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker';
 import { Input, Box, Button, Stack, Divider, HStack } from '@chakra-ui/react'; // Import Button component from Chakra UI
 import 'react-datepicker/dist/react-datepicker.css';
 
-const MyDatePicker = () => {
+const MyDatePicker = ({onSelectDate}) => {
   const [selectedDate, setSelectedDate] = useState(null);
 
   const handleDateChange = (date) => {
@@ -12,7 +12,7 @@ const MyDatePicker = () => {
 
   const handleSearch = () => {
     // Perform search operation with selectedDate
-    console.log('Searching for logs of date:', selectedDate);
+    onSelectDate(selectedDate)
   };
 
   // Disable future dates

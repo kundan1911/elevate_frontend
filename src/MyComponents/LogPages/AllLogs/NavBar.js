@@ -4,13 +4,20 @@ import MyDatePicker from './MyDatePicker'; // Import the date picker component
 import MonthComponent from './MonthComponent';
 import NameSearch from './NameSearch';
 
-const NavBar = () => {
+const NavBar = ({onSelectMonth,onSelectDate,onSelectName,allSelect}) => {
     const [activeOption, setActiveOption] = useState('All');
     const [showDatePicker, setShowDatePicker] = useState(false); // State to control visibility of the date picker
     const [showMonthPicker, setShowMonthPicker] = useState(false);
     const [showNamePicker, setShowNamePicker] = useState(false);
     const handleOptionClick = (option) => {
       setActiveOption(option);
+      if (option === 'All') {
+        allSelect()
+        setShowDatePicker(false);
+        setShowMonthPicker(false);
+        setShowNamePicker(false)  
+      }
+      else{
       if (option === 'Date') {
         if(showDatePicker === false)
             setShowDatePicker(true); // Show the date picker when "Date" is clicked
@@ -38,6 +45,7 @@ const NavBar = () => {
       else{
         setShowNamePicker(false)
       }
+    }
     };
   
 
@@ -93,9 +101,9 @@ const NavBar = () => {
           Name
         </Button>
       </Flex>
-      {showDatePicker && <MyDatePicker />} {/* Render the date picker when showDatePicker is true */}
-      {showMonthPicker && <MonthComponent />}
-      {showNamePicker && <NameSearch/>}
+      {showDatePicker && <MyDatePicker onSelectDate={onSelectDate}/>} {/* Render the date picker when showDatePicker is true */}
+      {showMonthPicker && <MonthComponent onSelectMonth={onSelectMonth}/>}
+      {showNamePicker && <NameSearch onSelectName={onSelectName}/>}
     </Box>
   );
 };

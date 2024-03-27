@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Flex, Input, Button } from '@chakra-ui/react';
 
-const NameSearch = ({ onSearch }) => {
+const NameSearch = ({ onSelectName }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = (event) => {
@@ -9,7 +9,7 @@ const NameSearch = ({ onSearch }) => {
   };
 
   const handleSearch = () => {
-    onSearch(searchTerm);
+    onSelectName(searchTerm);
   };
 
   return (

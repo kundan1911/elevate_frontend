@@ -66,7 +66,7 @@ else{
   const handleDone = Calldata => {
     console.log('Done with call:', Calldata);
 
-axios.post('http://127.0.0.1:8000/send_car_ready_sms', {
+axios.post('http://127.0.0.1:8000/handle_incoming_call', {
       phone_number: Calldata.phone_number,
       parking_slot_number:Calldata.parking_slot_number
     })
