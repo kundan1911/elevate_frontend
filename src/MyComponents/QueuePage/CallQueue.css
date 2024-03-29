@@ -29,51 +29,61 @@
   }
 
 
-/* individual call-block's css starts here */
   .call-block {
     background-color: white;
-    /* height: 230px; */
     display: flex;
     justify-content: space-around;
     flex-direction: column;
     padding: 30px 40px;
     border-radius: 26px;
     box-shadow: 8px 8px 19.5px 0px rgba(0, 0, 0, 0.25);
-    /* Other styles for individual call blocks */
+  }
+  
+  .background {
+    background-color: white;
+    transition: filter 0.3s ease-in-out;
+  }
+  
+  .background.blurred {
+    filter: blur(3px);
   }
   
   .parkingNo {
     text-align: center;
     font-size: 111px;
-    color:#1F3453 ;
+    color: #1F3453;
     font-weight: bold;
     margin-bottom: 10px;
-    /* Additional styles for caller info if needed */
   }
   
   .timer-and-button {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* Additional styles for the timer and button container */
   }
   
-  .timer{
+  .timer {
     padding: 20px;
     padding-bottom: 30px;
     color: #C60000;
     font-size: 45px;
     text-align: center;
   }
-
-  .doneButton{
+  
+  .doneButton, .undoButton {
     padding: 15px 20px;
-    background-color: #F7921C;
     font-size: 32px;
     color: white;
     border: none;
     border-radius: 11px;
     cursor: pointer;
-    /* Additional styles for the button */
+  }
+  
+  .doneButton {
+    background-color: #F7921C;
+  }
+  
+  .undoButton {
+    background-color: #1F3453;
   }
   
