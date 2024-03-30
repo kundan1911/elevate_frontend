@@ -66,10 +66,10 @@ const CallBlock = ({ slotNo, onDone, uniqueId, startTimeStamp }) => {
   };
 
   return (
-    <div className="call-block">
-      <div className={`background ${countdown > 0 ? 'blurred' : ''}`}>
+    <div className={`call-block ${countdown > 0 ? 'blurred' : ''}`}>
+      {/* <div className={`background ${countdown > 0 ? 'blurred' : ''}`}> */}
         <div className="parkingNo">{slotNo}</div>
-      </div>
+      {/* </div> */}
       <div className="timer-and-button">
         <div className="timer">{countdown > 0 ? formatTime(countdown) : formatTime(elapsedTime)}</div>
         {countdown > 0 ? (

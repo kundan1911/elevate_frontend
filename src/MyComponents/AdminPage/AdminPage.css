@@ -1,5 +1,5 @@
     .mini-header{
-        padding: 2vh;
+        padding:0%;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -72,7 +72,7 @@
 
     .user-data{
         padding-right: 20px;
-        height: 66vh;
+        height: 68vh;
         overflow: hidden;
         overflow-y: scroll;
         margin-right: 10px;
