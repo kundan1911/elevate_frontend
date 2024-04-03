@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // En
 import { useState } from 'react';
 import RecentLogs from './MyComponents/LogPages/RecentLogs/RecentLogs';
 import AllLogs from './MyComponents/LogPages/AllLogs/AllLogs'
+import logo from './logo.svg';
 
 
 function App() {

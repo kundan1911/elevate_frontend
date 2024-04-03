@@ -23,7 +23,6 @@ const Header = ({ backButton, homeButton }) => {
       navigate(-1);
     }
   };
-  console.log("header render");
   
   return (
     <header className='App-header'>

@@ -11,35 +11,35 @@ const CallQueue = (props) => {
 
   useEffect(() => {
     const newSocket = new WebSocket('ws://localhost:8000/ws/alerts/'); // Replace with your server URL
-
+  
     newSocket.onmessage = function (event) {
       const data = JSON.parse(event.data);
       console.log(data);
-      if (data?.type === "NewOwnerCall") {
+      if (data?.type === "NewOwnerCall" && data.phone_number) {
         toast({
-          title: "type: " + data.type + "    phoneNo:" + data.phone_number,
+          title: "type: " + data.type + "    phoneNo:" + data.phone_number.phone_number,
           status: "success",
           duration: 5000,
           isClosable: true,
           position: "top-right", // Set position to "top-right"
         });
-        console.log(data);
-        setCallQueue(prevCallQueue => [...prevCallQueue, { ...data, startTimeStamp: Date.parse(data.timestamp) }]);
-      } else {
+        console.log("call data:", data.phone_number)
+        setCallQueue(prevCallQueue => [...prevCallQueue, { parking_slot_number: data.phone_number.parking_slot_number, startTimeStamp: Date.parse(data.phone_number.timestamp) }]);
+      } else if (data?.phone_number){
         toast({
-          title: "type: " + data.type + "    phoneNo:" + data.phone_number,
+          title: "type: " + data.type + "    phoneNo:" + (data?.phone_number?.phone_number || "N/A"), // Handling case when phone_number is undefined
           status: "error",
-          duration: 5000,
+          duration: 50000,
           isClosable: true,
           position: "top-right", // Set position to "top-right"
         });
-        console.log("call data:", data.phone_number)
-        if (data.phone_number)
-          setCallQueue(prevCallQueue => [...prevCallQueue, { phone_number: data.phone_number, startTimeStamp: Date.parse(data.timestamp) }]);
+      }
+      else{
+        console.log("WebSocket connection established");
       }
     };
     setSocket(newSocket);
-
+  
     axios.get('http://127.0.0.1:8000/get_all_received_call')
       .then(response => {
         console.log(response.data);
@@ -48,11 +48,12 @@ const CallQueue = (props) => {
       .catch(error => {
         console.error(error);
       });
-
+  
     return () => {
       newSocket.close();
     };
   }, []);
+  
 
   props.setbackButton(false)
   props.setlogButton(false)
@@ -82,7 +83,7 @@ const CallQueue = (props) => {
         {callQueue.map((call, index) => (
           <CallBlock
             key={index}
-            slotNo={call.parking_slot_number}
+            slotNo={call.parking_slot_number} // Change to slotNo
             uniqueId={call.id} // Add unique ID if available
             startTimeStamp={call.startTimeStamp}
             onDone={() => handleDone(call)}

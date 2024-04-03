@@ -73,7 +73,7 @@
     justify-content: space-between;
   }
   
-  .cancel-button{
+  .cancel-button {
     padding: 10px;
     width: 48%;
     background-color: #FFF;
@@ -81,7 +81,13 @@
     font-size: 35px;
     color: #F7921C;
     border-radius: 10px;
-  }
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for background color and text color */
+}
+
+.cancel-button:hover {
+    background-color: #F7921C; /* Change background color on hover */
+    color: white; /* Change text color on hover */
+}
 
   .add-button {
     background-color:#F7921C ;
@@ -92,5 +98,10 @@
     padding: 10px;
     width: 48%;
     cursor: pointer;
+    transition: background-color 0.3s ease;
   }
+
+  .add-button:hover {
+    background-color: #e6811b; /* Change background color on hover */
+}
   

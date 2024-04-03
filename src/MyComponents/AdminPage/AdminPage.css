@@ -15,9 +15,8 @@
         /* display: flex; */
     }
 
-    .add-user-button{
-        /* width: 218px;
-        height: 64px; */
+    .add-user-button {
+        /* Other styles */
         padding: 13px 31px;
         flex-shrink: 0;
         font-size: 32.497px;
@@ -27,9 +26,13 @@
         background: #F7921C;
         text-align: center;
         text-decoration: none;
-        /* display: flex; */
+        transition: background-color 0.3s ease; /* Smooth transition for background color */
     }
-
+    
+    .add-user-button:hover {
+        background-color: #e6811b; /* Change background color on hover */
+    }
+    
     .users-grid{
         padding: 35px;
         padding-top: 10px;

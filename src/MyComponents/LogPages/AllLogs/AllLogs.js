@@ -11,7 +11,7 @@ const AllLogs = (props) => {
   const [callonce, setCall] = useState(1);
   const [AllLogData, setAllLogData] = useState([]);
 
-  
+
   const DisplayAllLogData = () => {
     console.log("log data  request")
     axios.get('http://localhost:8000/get_all_log')
@@ -30,29 +30,44 @@ const AllLogs = (props) => {
   }
 
 
-  const onSelectMonth = (year,month) => {
-    console.log('onselect in all log',year,month)
-    axios.post('http://127.0.0.1:8000/get_particular_logs', {type:1, month: month, year: year })
-    .then(response => {
-      console.log('Data updated successfully:', response.data);
-      setAllLogData([...response.data.logs]);
-    })
-    .catch(error => {
-      console.error('Error updating data:', error);
-    });
+  const onSelectMonth = (year, month) => {
+    console.log('onselect in all log', year, month)
+    axios.post('http://127.0.0.1:8000/get_particular_logs', { type: 1, month: month, year: year })
+      .then(response => {
+        console.log('Data updated successfully:', response.data);
+        setAllLogData([...response.data.logs]);
+      })
+      .catch(error => {
+        console.error('Error updating data:', error);
+      });
 
   }
   const onSelectDate = (date) => {
     // Adjust the date to account for the time zone difference
     console.log(date)
-    const adjustedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
-  
-    // Format the adjusted date in YYYY-MM-DD format
-    const formattedDate = adjustedDate.toISOString().split('T')[0];
-  
-    console.log('Formatted date:', formattedDate);
-  
-    axios.post('http://127.0.0.1:8000/get_particular_logs', { type: 2, date: formattedDate })
+    if (date) {
+      const adjustedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+
+      // Format the adjusted date in YYYY-MM-DD format
+      const formattedDate = adjustedDate.toISOString().split('T')[0];
+
+      console.log('Formatted date:', formattedDate);
+
+      axios.post('http://127.0.0.1:8000/get_particular_logs', { type: 2, date: formattedDate })
+        .then(response => {
+          console.log('Data updated successfully:', response.data);
+          setAllLogData([...response.data.logs]);
+        })
+        .catch(error => {
+          console.error('Error updating data:', error);
+        });
+    }
+
+  }
+
+  const onSelectName = (name) => {
+    console.log('name selected is ', name)
+    axios.post('http://127.0.0.1:8000/get_particular_logs', { type: 3, name: name, })
       .then(response => {
         console.log('Data updated successfully:', response.data);
         setAllLogData([...response.data.logs]);
@@ -61,19 +76,7 @@ const AllLogs = (props) => {
         console.error('Error updating data:', error);
       });
   }
-  
-  const onSelectName = (name) => {
-    console.log('name selected is ',name)
-    axios.post('http://127.0.0.1:8000/get_particular_logs', {type:3, name: name,})
-    .then(response => {
-      console.log('Data updated successfully:', response.data);
-      setAllLogData([...response.data.logs]);
-    })
-    .catch(error => {
-      console.error('Error updating data:', error);
-    });
-  }
-  const allSelect=()=>{
+  const allSelect = () => {
     DisplayAllLogData()
   }
   return (
@@ -81,7 +84,7 @@ const AllLogs = (props) => {
       <Box width="100%" p={8}>
         <Stack direction="row" spacing={20} align="center" mb={5} mt={2}>
           <div className="UL-heading">Logs</div>
-          <NavBar onSelectMonth={onSelectMonth} onSelectDate={onSelectDate} onSelectName={onSelectName} allSelect={allSelect}/>
+          <NavBar onSelectMonth={onSelectMonth} onSelectDate={onSelectDate} onSelectName={onSelectName} allSelect={allSelect} />
         </Stack>
         {/* <MonthComponent/> */}
         <div className="log-titles">
