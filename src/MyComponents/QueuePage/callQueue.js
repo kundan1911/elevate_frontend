@@ -15,7 +15,7 @@ const CallQueue = (props) => {
     newSocket.onmessage = function (event) {
       const data = JSON.parse(event.data);
       console.log(data);
-      if (data?.type === "NewOwnerCall" && data.phone_number) {
+      if (data?.type === 1 && data.phone_number) {
         toast({
           title: "type: " + data.type + "    phoneNo:" + data.phone_number.phone_number,
           status: "success",
@@ -24,7 +24,7 @@ const CallQueue = (props) => {
           position: "top-right", // Set position to "top-right"
         });
         console.log("call data:", data.phone_number)
-        setCallQueue(prevCallQueue => [...prevCallQueue, { parking_slot_number: data.phone_number.parking_slot_number, startTimeStamp: Date.parse(data.phone_number.timestamp) }]);
+        setCallQueue(prevCallQueue => [{ parking_slot_number: data.phone_number.parking_slot_number, startTimeStamp: Date.parse(data.phone_number.timestamp)},...prevCallQueue ]);
       } else if (data?.phone_number){
         toast({
           title: "type: " + data.type + "    phoneNo:" + (data?.phone_number?.phone_number || "N/A"), // Handling case when phone_number is undefined

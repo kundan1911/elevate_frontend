@@ -64,7 +64,7 @@
         flex: 1;
     }
     #xs.admin-table-headings{
-        flex: 0.5;
+        flex: 0.6;
     }
     #actions.table-headings{
         justify-content: center;

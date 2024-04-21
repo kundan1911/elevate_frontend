@@ -86,7 +86,13 @@
   
   .doneButton {
     background-color: #F7921C;
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
   }
+  
+  .doneButton:hover {
+      background-color: #e6811b; /* Change background color on hover */
+  }
+  
   
   .undoButton {
     background-color: #1F3453;
