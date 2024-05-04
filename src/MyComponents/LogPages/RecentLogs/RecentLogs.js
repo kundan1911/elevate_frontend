@@ -3,16 +3,18 @@ import { Link } from 'react-router-dom';
 import './RecentLogs.css'
 import RecentLog_block from './RecentLog_block'; // Adjust the import path based on your project structure
 import axios from 'axios'; 
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button } from "@chakra-ui/react";
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button,useToast } from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom';
-
 const RecentLogs = (props) => {
   const [callonce, setCall] = useState(1);
   const [recentLogData, setrecentLogData] = useState([]);
+  const toast = useToast();
   const navigator = useNavigate();
   const [selectedUser, setSelectedUser] = useState({
+    id:'',
     name: '',
-    slot_no: ''
+    slot_no: '',
+    
   });
   const [showModal, setShowModal] = useState(false);
   props.setlogButton(false)
@@ -41,12 +43,21 @@ const RecentLogs = (props) => {
 
   const confirmUndo = () => {
    
-    axios.post('http://127.0.0.1:8000/undo_recent_log', { name: selectedUser.name,slot_no:selectedUser.slot_no })
+    axios.post('http://127.0.0.1:8000/undo_recent_log', {id:selectedUser.id, name: selectedUser.name,slot_no:selectedUser.slot_no ,time:selectedUser.time})
       .then(response => {
         console.log(response);
         // Refresh users after deletio
+        if(response.data.success==true)
         navigator('/')
-
+        else{
+          toast({
+            title: (response.data.message ), // Handling case when phone_number is undefined
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+            position: "top-right", // Set position to "top-right"
+          });
+        }
 
       })
       .catch(error => {
@@ -104,5 +115,3 @@ const RecentLogs = (props) => {
 };
 
 export default RecentLogs;
-
-

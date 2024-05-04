@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import CallBlock from './callBlock';
 import axios from 'axios';
 import './CallQueue.css';
-// import { useToast } from "@chakra-ui/react";
+
 
 const CallQueue = (props) => {
-  // const [socket, setSocket] = useState(null);
-  // const toast = useToast();
-  // const [callQueue, setCallQueue] = useState([]);
 
   useEffect(() => {
+    console.log("call queue request")
     axios.get('http://127.0.0.1:8000/get_all_received_call')
       .then(response => {
         console.log(response.data);
-       props.setCallQueue([...response.data.data.map(call => ({ ...call, startTimeStamp: Date.parse(call.timestamp) }))]);
+        props.setCallQueue([...response.data.data.map(call => ({ ...call, startTimeStamp: Date.parse(call.timestamp) }))]);
       })
       .catch(error => {
         console.error(error);
@@ -29,8 +27,8 @@ const CallQueue = (props) => {
     console.log('Done with call:', callData);
 
     axios.post('http://127.0.0.1:8000/send_car_ready_sms', {
-      phone_number: callData.phone_number,
-      parking_slot_number: callData.parking_slot_number
+      car_owner_id: callData.id,
+
     })
       .then(response => {
         console.log(response.data);
@@ -39,12 +37,13 @@ const CallQueue = (props) => {
         console.error(error);
       });
 
-    props.setCallQueue(prevCallQueue => prevCallQueue.filter(call => call.phone_number !== callData.phone_number));
+    props.setCallQueue(prevCallQueue => prevCallQueue.filter(call => call.id !== callData.id));
   };
 
   return (
     <div className="call-queue">
       <div className="call-blocks">
+        {/* <button onClick={test}>Test</button> */}
         {props.callQueue.map((call, index) => (
           <CallBlock
             key={index}

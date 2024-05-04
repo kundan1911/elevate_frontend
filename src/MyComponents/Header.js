@@ -5,7 +5,7 @@ import './Header.css';
 import axios from 'axios';
 import { useToast, Button } from "@chakra-ui/react";
 
-const Header = ({ backButton, homeButton,setCallQueue }) => {
+const Header = ({ backButton, homeButton, setCallQueue }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const toast = useToast();
@@ -28,26 +28,33 @@ const Header = ({ backButton, homeButton,setCallQueue }) => {
               console.error("Error sending request:", error);
             });
         };
-      
+
         toast({
           id: data.phone_number.user_id, // Assign the generated id to the toast
-          title: "type: " + data.type,
+          title: "New Incoming Request",
           description: (
-            <>
-              phoneNo: {data.phone_number.phone_number}
-              <Button colorScheme="blue" ml={4} onClick={()=>handleReceive(data.phone_number.user_id)}>
+            <div style={{ paddingBlock: '10px' }}>
+              PhoneNo: {data.phone_number.phone_number}
+              <Button style={{ color: 'green', backgroundColor: 'white', boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)' }} size="sm" ml={4} onClick={() => handleReceive(data.phone_number.user_id)}>
                 Receive
               </Button>
-            </>
+
+            </div>
           ),
           status: "success",
           duration: null, // Set duration to null to keep the toast open indefinitely
           isClosable: false, // Disable the default close button
           position: "top-right",
+          variant: "solid", // This is to ensure the green color of the button
+          containerStyle: {
+            padding: 1,
+          }
         });
+
+
         console.log("call data:", data.phone_number)
-        setCallQueue(prevCallQueue => [{ parking_slot_number: data.phone_number.parking_slot_number, startTimeStamp: Date.parse(data.phone_number.timestamp)},...prevCallQueue ]);
-      } else if (data?.phone_number){
+        setCallQueue(prevCallQueue => [...prevCallQueue, { id: data.phone_number.user_id, parking_slot_number: data.phone_number.parking_slot_number, startTimeStamp: Date.parse(data.phone_number.timestamp) }]);
+      } else if (data?.phone_number) {
         toast({
           title: "type: " + data.type + "    phoneNo:" + (data?.phone_number?.phone_number || "N/A"), // Handling case when phone_number is undefined
           status: "error",
@@ -55,7 +62,7 @@ const Header = ({ backButton, homeButton,setCallQueue }) => {
           position: "top-right", // Set position to "top-right"
         });
       }
-      else{
+      else {
         console.log("WebSocket connection established");
       }
     };
@@ -66,37 +73,37 @@ const Header = ({ backButton, homeButton,setCallQueue }) => {
       newSocket.close();
     };
   }, []);
-  
+
   const handleNavigation = () => {
     console.log("header button clicked");
     if (location.pathname === "/admin") {
       navigate("/");
-    } 
+    }
     else if (location.pathname === "/admin/AddUser") {
       navigate("/admin");
     }
     else if (location.pathname === "/admin/AddUser") {
-        navigate("/admin"); 
-    } 
+      navigate("/admin");
+    }
     else {
       // Default behavior, go back one step
       navigate(-1);
     }
   };
-  
+
   return (
     <header className='App-header'>
       {backButton && (
-        <div className='backButton' onClick={handleNavigation}> 
-          <img id='ButtonImage' src="/images/backButton.png" alt="Back"  />
-        </div> 
+        <div className='backButton' onClick={handleNavigation}>
+          <img id='ButtonImage' src="/images/backButton.png" alt="Back" />
+        </div>
       )}
       <div className='logo'>
         <img src="/images/ELEVATE_logo_1.png" alt="Logo" />
       </div>
       {homeButton && (
         <Link to='/' className="home-Btn">
-          <img id='homeButtonImage' src="/images/home (5).png" alt="Back"  />
+          <img id='homeButtonImage' src="/images/home (5).png" alt="Back" />
         </Link>
       )}
     </header>

@@ -40,6 +40,12 @@
     justify-content: space-evenly;
 }
 
-/* .user-actions:hover{
+.buttonImg {
+    width: auto;
+    transition: width 0.3s, height 0.3s; /* Add transition for both width and height */
+}
 
-} */
+.buttonImg:hover {
+    width: 37px;
+    height: auto;
+}

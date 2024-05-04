@@ -13,10 +13,10 @@ const UserData = ({ user, onEdit, onDelete }) => {
 
       <div className="user-actions"id='smol'>
         <div className='editButton' onClick={onEdit}> 
-            <img src="/images/edit_button.png" alt="??"/>
+            <img className='buttonImg' src="/images/edit_button.png" alt="??"/>
         </div>
         <div className='deleteButton'  onClick={onDelete}> 
-            <img src="/images/Delete_button.png" alt="??"/>
+            <img className='buttonImg' src="/images/Delete_button.png" alt="??"/>
         </div>  
       </div>
 

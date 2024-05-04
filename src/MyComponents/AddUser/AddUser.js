@@ -63,9 +63,9 @@ const AddUser = (props) => {
           position: "top-right",
         });
         if (response.data.success) {
-          setTimeout(() => {
-            navigate('/admin');
-          }, 3000);
+          // setTimeout(() => {
+          navigate('/admin');
+          // },10);
         }
       })
       .catch(error => {
