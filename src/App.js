@@ -17,13 +17,14 @@ function App() {
   const [adminButton, setadminButton] = useState(true);
   const [logButton, setlogButton] = useState(false);
   const [homeButton, sethomeButton] = useState(true);
+  const [callQueue, setCallQueue] = useState([]);
  
   return (
     <>
       <Router>
-        <Header backButton={backButton} homeButton={homeButton} />
+        <Header backButton={backButton} homeButton={homeButton} setCallQueue={setCallQueue}/>
         <Routes>
-          <Route exact path="/" element={<CallQueue setbackButton={setbackButton} setadminButton={setadminButton} setlogButton={setlogButton} sethomeButton={sethomeButton}/>} />
+          <Route exact path="/" element={<CallQueue setbackButton={setbackButton} setadminButton={setadminButton} setlogButton={setlogButton} sethomeButton={sethomeButton} setCallQueue={setCallQueue} callQueue={callQueue}/>} />
           <Route exact path="/admin" element={<AdminPage setbackButton={setbackButton} setadminButton={setadminButton} setlogButton={setlogButton} sethomeButton={sethomeButton}/>} />
           <Route exact path="/admin/AddUser" element={<AddUser setbackButton={setbackButton} setadminButton={setadminButton} setlogButton={setlogButton} sethomeButton={sethomeButton}/>} />
           <Route exact path="/admin/EditUser" element={<EditUser setbackButton={setbackButton} setadminButton={setadminButton} setlogButton={setlogButton} sethomeButton={sethomeButton}/>} />
