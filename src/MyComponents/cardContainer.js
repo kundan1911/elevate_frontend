@@ -1,5 +1,5 @@
 // CardContainer.jsx
-
+import { VStack } from "@chakra-ui/react";
 import React, { useRef, useState, useEffect } from 'react';
 import './cardContainer.css';
 

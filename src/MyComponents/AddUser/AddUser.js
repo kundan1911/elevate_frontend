@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
-import { useToast } from "@chakra-ui/react";
-import './AddUser.css';
+import { useToast, Box, Button, Input, FormControl, FormLabel, Heading, VStack } from "@chakra-ui/react";
 
 const AddUser = (props) => {
   const navigate = useNavigate();
@@ -12,27 +11,32 @@ const AddUser = (props) => {
   const [slotNo, setSlotNo] = useState('');
   const [phoneNo, setPhoneNo] = useState('');
 
+  const [isNameFocused, setIsNameFocused] = useState(false);
+  const [isCarNoFocused, setIsCarNoFocused] = useState(false);
+  const [isSlotNoFocused, setIsSlotNoFocused] = useState(false);
+  const [isPhoneNoFocused, setIsPhoneNoFocused] = useState(false);
+
   props.setbackButton(true);
 
-  const handleCancel = (e) => {
+  const handleCancel = () => {
     navigate('/admin');
-  }
+  };
 
   const handleNameChange = (e) => {
     setName(e.target.value.toUpperCase());
-  }
+  };
 
   const handleCarNoChange = (e) => {
     setCarNo(e.target.value.toUpperCase());
-  }
+  };
 
   const handleSlotNoChange = (e) => {
     setSlotNo(e.target.value.toUpperCase());
-  }
+  };
 
   const handlePhoneNoChange = (e) => {
     setPhoneNo(e.target.value.replace(/\D/g, '').slice(0, 10));
-  }
+  };
 
   const handleAddUser = (e) => {
     e.preventDefault();
@@ -63,9 +67,7 @@ const AddUser = (props) => {
           position: "top-right",
         });
         if (response.data.success) {
-          // setTimeout(() => {
           navigate('/admin');
-          // },10);
         }
       })
       .catch(error => {
@@ -73,38 +75,75 @@ const AddUser = (props) => {
       });
   };
 
+  const getLabelStyle = (isFocused, value) => {
+    return {
+      position: 'absolute',
+      top: isFocused || value ? '-0.7rem' : '.6rem',
+      left: '0.5rem',
+      fontSize: isFocused || value ? 'small' : 'large',
+      transition: '0.2s ease-in-out',
+      pointerEvents: 'none',
+      backgroundColor: 'white',
+      px: 1,
+    };
+  };
+
   return (
-    <div className="add-user-container">
-      <div className="add-user-box">
-        <h2 className="add-user-heading">ADD USER</h2>
-        <div className='inputs'>
-          <div className="input-container">
-            <input type="text" id="name" value={name} onChange={handleNameChange} required />
-            <label htmlFor="name">Enter Name</label>
-          </div>
+    <Box display="flex" justifyContent="center" alignItems="center" height="81vh">
+      <Box bg="white" p={8} rounded="xl" shadow="xl" width="100%" maxW="md">
+        <Heading as="h2" fontSize={'xx-large'} mb={8} textAlign="center" color="#1F3453">ADD USER</Heading>
+        <VStack spacing={7}>
+          <FormControl id="name" >
+            <FormLabel fontWeight={'normal'} paddingInline={1} zIndex={3} style={getLabelStyle(isNameFocused, name)}>Enter Name</FormLabel>
+            <Input
+              size='lg'
+              value={name}
+              onChange={handleNameChange}
+              onFocus={() => setIsNameFocused(true)}
+              onBlur={() => setIsNameFocused(false)}
+            />
+          </FormControl>
 
-          <div className="input-container">
-            <input type="text" id="carNo" value={carNo} onChange={handleCarNoChange} required />
-            <label htmlFor="carNo">Enter Car No.</label>
-          </div>
+          <FormControl id="carNo">
+            <FormLabel fontWeight={'normal'} paddingInline={1} zIndex={3} style={getLabelStyle(isCarNoFocused, carNo)}>Enter Car No.</FormLabel>
+            <Input
+              size='lg'
+              value={carNo}
+              onChange={handleCarNoChange}
+              onFocus={() => setIsCarNoFocused(true)}
+              onBlur={() => setIsCarNoFocused(false)}
+            />
+          </FormControl>
 
-          <div className="input-container">
-            <input type="text" id="slotNo" value={slotNo} onChange={handleSlotNoChange} required />
-            <label htmlFor="slotNo">Enter Slot No.</label>
-          </div>
+          <FormControl id="slotNo">
+            <FormLabel fontWeight={'normal'} paddingInline={1} zIndex={3} style={getLabelStyle(isSlotNoFocused, slotNo)}>Enter Slot No.</FormLabel>
+            <Input
+              size='lg'
+              value={slotNo}
+              onChange={handleSlotNoChange}
+              onFocus={() => setIsSlotNoFocused(true)}
+              onBlur={() => setIsSlotNoFocused(false)}
+            />
+          </FormControl>
 
-          <div className="input-container">
-            <input type="text" id="phoneNo" value={phoneNo} onChange={handlePhoneNoChange} required />
-            <label htmlFor="phoneNo">Enter Phone No.</label>
-          </div>
-        </div>
+          <FormControl id="phoneNo">
+            <FormLabel fontWeight={'normal'} paddingInline={1} zIndex={3} style={getLabelStyle(isPhoneNoFocused, phoneNo)}>Enter Phone No.</FormLabel>
+              <Input
+                size='lg'
+                value={phoneNo}
+                onChange={handlePhoneNoChange}
+                onFocus={() => setIsPhoneNoFocused(true)}
+                onBlur={() => setIsPhoneNoFocused(false)}
+              />
+          </FormControl>
 
-        <div className="button-container">
-          <button className="cancel-button" onClick={handleCancel}>Cancel</button>
-          <button className="add-button" onClick={handleAddUser}>Add</button>
-        </div>
-      </div>
-    </div>
+          <Box display="flex" justifyContent="space-between" width="100%">
+            <Button colorScheme="gray" onClick={handleCancel} width="48%">Cancel</Button>
+            <Button colorScheme='orange' onClick={handleAddUser} width="48%">Add</Button>
+          </Box>
+        </VStack>
+      </Box>
+    </Box>
   );
 };
 

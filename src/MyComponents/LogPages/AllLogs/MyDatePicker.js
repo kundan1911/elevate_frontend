@@ -21,7 +21,7 @@ const MyDatePicker = ({onSelectDate}) => {
   };
 
   return (
-      <HStack p={5} mt={3} position={'absolute'} bg={'white'} left={'47%'} borderRadius='xl' boxShadow="xl">
+      <HStack p={5} mt={3} position={'absolute'} bg={'white'} left={'40%'} borderRadius='xl' boxShadow="xl" zIndex={1}>
         <DatePicker
           selected={selectedDate}
           onChange={handleDateChange}

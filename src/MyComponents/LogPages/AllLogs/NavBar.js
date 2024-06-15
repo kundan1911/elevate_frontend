@@ -50,53 +50,53 @@ const NavBar = ({onSelectMonth,onSelectDate,onSelectName,allSelect}) => {
   
 
   return (
-    <Box minWidth="70vw" bg={'white'} h="auto" borderRadius="md" p={0}>
+    <Box minWidth="70vw" bg={'white'} h="auto" borderRadius="md" pr={0} mr={2}>
       <Flex position={'relative'} justifyContent="center" mt={0}>
         <Button
           flex="1"
-          size="lg" // Set button size to large
-          fontSize="xl"
+          size="md" // Set button size to large
+          fontSize="large"
           onClick={() => handleOptionClick('All')}
           bg={activeOption === 'All' ? '#F7921C' : 'transparent'} // Set background color
           color={activeOption === 'All' ? 'white' : 'grey'} // Set text color
           border="none" // Remove border
-          _hover={{ bg: activeOption === 'All' ? '#F7921C' : '#f0f0f0', color: activeOption === 'All' ? 'white' : 'gray.800' }} // Change background color and text color on hover
+          _hover={{ bg: activeOption === 'All' ? '#F7921C' : '#ffffff', color: activeOption === 'All' ? 'white' : 'gray.800' }} // Change background color and text color on hover
         >
           All
         </Button>
         <Button
           flex="1"
-          size="lg" // Set button size to large
-          fontSize="xl"
+          size="md" // Set button size to large
+          fontSize="large"
           onClick={() => handleOptionClick('Month')}
           bg={activeOption === 'Month' ? '#F7921C' : 'transparent'} // Set background color
           color={activeOption === 'Month' ? 'white' : 'grey'} // Set text color
           border="none" // Remove border
-          _hover={{ bg: activeOption === 'Month' ? '#F7921C' : '#f0f0f0', color: activeOption === 'Month' ? 'white' : 'gray.800' }} // Change background color and text color on hover
+          _hover={{ bg: activeOption === 'Month' ? '#F7921C' : '#ffffff', color: activeOption === 'Month' ? 'white' : 'gray.800' }} // Change background color and text color on hover
         >
           Month
         </Button>
         <Button
           flex="1"
-          size="lg" // Set button size to large
-          fontSize="xl"
+          size="md" // Set button size to large
+          fontSize="large"
           onClick={() => handleOptionClick('Date')}
           bg={activeOption === 'Date' ? '#F7921C' : 'transparent'} // Set background color
           color={activeOption === 'Date' ? 'white' : 'grey'} // Set text color
           border="none" // Remove border
-          _hover={{ bg: activeOption === 'Date' ? '#F7921C' : '#f0f0f0', color: activeOption === 'Date' ? 'white' : 'gray.800' }} // Change background color and text color on hover
+          _hover={{ bg: activeOption === 'Date' ? '#F7921C' : '#ffffff', color: activeOption === 'Date' ? 'white' : 'gray.800' }} // Change background color and text color on hover
         >
           Date
         </Button>
         <Button
           flex="1"
-          size="lg" // Set button size to large
-          fontSize="xl"
+          size="md" // Set button size to large
+          fontSize="large"
           onClick={() => handleOptionClick('Name')}
           bg={activeOption === 'Name' ? '#F7921C' : 'transparent'} // Set background color
           color={activeOption === 'Name' ? 'white' : 'grey'} // Set text color
           border="none" // Remove border
-          _hover={{ bg: activeOption === 'Name' ? '#F7921C' : '#f0f0f0', color: activeOption === 'Name' ? 'white' : 'gray.800' }} // Change background color and text color on hover
+          _hover={{ bg: activeOption === 'Name' ? '#F7921C' : '#ffffff', color: activeOption === 'Name' ? 'white' : 'gray.800' }} // Change background color and text color on hover
         >
           Name
         </Button>

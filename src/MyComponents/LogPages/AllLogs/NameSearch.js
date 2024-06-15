@@ -14,7 +14,7 @@ const NameSearch = ({ onSelectName }) => {
 
   return (
     <Flex position={'absolute'} bg={'white'} p={5} alignItems="center"
-    borderRadius='xl' justifyContent="center" mt={4} right={'6%'}>
+    borderRadius='xl' justifyContent="center" boxShadow="xl" mt={4} right={'6%'} zIndex={1}>
       <Input
         placeholder="Enter name"
         value={searchTerm}

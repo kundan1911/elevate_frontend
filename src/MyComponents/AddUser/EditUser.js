@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import './AddUser.css';
+// import './AddUser.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import { Box, Button, Input, FormControl, FormLabel, Heading, VStack } from "@chakra-ui/react";
 
 const EditUser = (props) => {
   const location = useLocation();
@@ -15,6 +16,11 @@ const EditUser = (props) => {
   });
   const [carNoToUpdate, setCarNoToUpdate] = useState('');
 
+  const [isNameFocused, setIsNameFocused] = useState(false);
+  const [isCarNoFocused, setIsCarNoFocused] = useState(false);
+  const [isSlotNoFocused, setIsSlotNoFocused] = useState(false);
+  const [isPhoneNoFocused, setIsPhoneNoFocused] = useState(false);
+
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     if (id === 'name' || id === 'car_number' || id === 'parking_slot_number') {
@@ -26,93 +32,115 @@ const EditUser = (props) => {
     }
   };
 
-  const handleEdit = () => {
-    axios.post('http://127.0.0.1:8000/update_owner_data', { newOwnerData: ownerData, OwnerToUpdate: carNoToUpdate })
-      .then(response => {
-        console.log('Data updated successfully:', response.data);
-        navigate('/admin');
-      })
-      .catch(error => {
-        console.error('Error updating data:', error);
-      });
+    const handleEdit = () => {
+      axios.post('http://127.0.0.1:8000/update_owner_data', { newOwnerData: ownerData, OwnerToUpdate: carNoToUpdate })
+        .then(response => {
+          console.log('Data updated successfully:', response.data);
+          navigate('/admin');
+        })
+        .catch(error => {
+          console.error('Error updating data:', error);
+        });
+    };
+
+    useEffect(() => {
+      const searchParams = new URLSearchParams(location.search);
+      const car_number = searchParams.get('car_no');
+      setCarNoToUpdate(car_number);
+
+      axios.post('http://127.0.0.1:8000/get_car_owner_detail', { car_number: car_number })
+        .then(response => {
+          const ownerData = JSON.parse(response?.data?.data);
+          setOwnerData(ownerData);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }, []);
+
+    const handleCancel = () => {
+      navigate('/admin');
+    };
+
+    const getLabelStyle = (isFocused, value) => {
+      return {
+        position: 'absolute',
+        top: isFocused || value ? '-0.7rem' : '.6rem',
+        left: '0.5rem',
+        fontSize: isFocused || value ? 'small' : 'large',
+        transition: '0.2s ease-in-out',
+        pointerEvents: 'none',
+        backgroundColor: 'white',
+        px: 1,
+      };
+    };
+
+
+    return (
+        <Box display="flex" justifyContent="center" alignItems="center" height="81vh">
+          <Box bg="white" p={8} rounded="xl" shadow="xl" width="100%" maxW="md">
+            <Heading as="h2" fontSize={'xx-large'} mb={8} textAlign="center" color="#1F3453">EDIT USER</Heading>
+            <VStack spacing={7}>
+              <FormControl id="name" >
+                <FormLabel fontWeight={'normal'} paddingInline={1} zIndex={3} style={getLabelStyle(isNameFocused, ownerData.name)}>Enter Name</FormLabel>
+                <Input
+                  size='lg'
+                  type="text"
+                  required
+                  value={ownerData.name}
+                  onChange={handleInputChange}
+                  onFocus={() => setIsNameFocused(true)}
+                  onBlur={() => setIsNameFocused(false)}
+                />
+              </FormControl>
+
+              <FormControl id="carNo">
+                <FormLabel fontWeight={'normal'} paddingInline={1} zIndex={3} style={getLabelStyle(isCarNoFocused, ownerData.car_number)}>Enter Car No.</FormLabel>
+                <Input
+                  size='lg'
+                  type="text"
+                  required
+                  value={ownerData.car_number}
+                  onChange={handleInputChange}
+                  onFocus={() => setIsCarNoFocused(true)}
+                  onBlur={() => setIsCarNoFocused(false)}
+                />
+              </FormControl>
+
+              <FormControl id="slotNo">
+                <FormLabel fontWeight={'normal'} paddingInline={1} zIndex={3} style={getLabelStyle(isSlotNoFocused, ownerData.parking_slot_number)}>Enter Slot No.</FormLabel>
+                <Input
+                  size='lg'
+                  required
+                  type="text"
+                  value={ownerData.parking_slot_number}
+                  onChange={handleInputChange}
+                  onFocus={() => setIsSlotNoFocused(true)}
+                  onBlur={() => setIsSlotNoFocused(false)}
+                />
+              </FormControl>
+
+              <FormControl id="phoneNo">
+                <FormLabel fontWeight={'normal'} paddingInline={1} zIndex={3} style={getLabelStyle(isPhoneNoFocused, ownerData.phone_number)}>Enter Phone No.</FormLabel>
+                <Input
+                  size='lg'
+                  required
+                  type="text"
+                  value={ownerData.phone_number}
+                  onChange={handleInputChange}
+                  onFocus={() => setIsPhoneNoFocused(true)}
+                  onBlur={() => setIsPhoneNoFocused(false)}
+                />
+              </FormControl>
+
+              <Box display="flex" justifyContent="space-between" width="100%">
+                <Button colorScheme="gray" onClick={handleCancel} width="48%">Cancel</Button>
+                <Button colorScheme='orange' onClick={handleEdit} width="48%">Edit</Button>
+              </Box>
+            </VStack>
+          </Box>
+        </Box>
+    );
   };
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const car_number = searchParams.get('car_no');
-    setCarNoToUpdate(car_number);
-
-    axios.post('http://127.0.0.1:8000/get_car_owner_detail', { car_number: car_number })
-      .then(response => {
-        const ownerData = JSON.parse(response?.data?.data);
-        setOwnerData(ownerData);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
-
-  const handleCancel = () => {
-    navigate('/admin');
-  };
-
-  return (
-    <div className="add-user-container">
-      <div className="add-user-box">
-        <h2 className="add-user-heading">EDIT USER</h2>
-        <div className='inputs'>
-          <div className="input-container">
-            <input
-              type="text"
-              id="name"
-              required
-              value={ownerData.name}
-              onChange={handleInputChange}
-            />
-            <label htmlFor="name">Enter Name</label>
-          </div>
-
-          <div className="input-container">
-            <input
-              type="text"
-              id="car_number"
-              required
-              value={ownerData.car_number}
-              onChange={handleInputChange}
-            />
-            <label htmlFor="car_number">Enter Car No.</label>
-          </div>
-
-          <div className="input-container">
-            <input
-              type="text"
-              id="parking_slot_number"
-              required
-              value={ownerData.parking_slot_number}
-              onChange={handleInputChange}
-            />
-            <label htmlFor="parking_slot_number">Enter Slot No.</label>
-          </div>
-
-          <div className="input-container">
-            <input
-              type="text"
-              id="phone_number"
-              required
-              value={ownerData.phone_number}
-              onChange={handleInputChange}
-            />
-            <label htmlFor="phone_number">Enter Phone No.</label>
-          </div>
-        </div>
-
-        <div className="button-container">
-          <button className="cancel-button" onClick={handleCancel}>Cancel</button>
-          <button className="add-button" onClick={handleEdit}>Edit</button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default EditUser;
+  export default EditUser;

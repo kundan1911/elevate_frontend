@@ -15,6 +15,6 @@
           // Retry after 5 seconds
           reloadPage();
         });
-    }, 2000); // Retry every 5 seconds
+    }, 1000); // Retry every 5 seconds
   })();
   

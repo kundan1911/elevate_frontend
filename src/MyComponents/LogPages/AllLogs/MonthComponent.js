@@ -39,7 +39,16 @@ const MonthComponent = ({ onSelectMonth }) => {
   };
 
   return (
-    <Flex justifyContent="center" alignItems="center" m={4} p={3} width={'50vw'} bg={'white'} borderRadius="xl" position={'absolute'} boxShadow="xl">
+    <Flex justifyContent="center" 
+    alignItems="center" 
+    m={4} 
+    p={3} 
+    width={['85vw', '70vw', '65vw', '50vw']}
+    bg={'white'}
+    borderRadius="xl"
+    position={'absolute'}
+    boxShadow="xl"
+    zIndex={1}>
       <Select placeholder="Select Year" value={selectedYear} m={2} onChange={(e) => handleSelectYear(e.target.value)}>
         {years.map((year) => (
           <option key={year} value={year}>

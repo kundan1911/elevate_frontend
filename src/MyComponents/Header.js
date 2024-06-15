@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import './Header.css';
 import axios from 'axios';
-import { useToast, Button } from "@chakra-ui/react";
+import { useToast, Button,useDisclosure,HStack, PinInput, PinInputField, Select, Modal, ModalBody, ModalHeader, ModalCloseButton, ModalContent, ModalOverlay, ModalFooter } from "@chakra-ui/react";
 
 const Header = ({ backButton, homeButton, setCallQueue }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const toast = useToast();
   const [socket, setSocket] = useState(null);
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
     const newSocket = new WebSocket('ws://localhost:8000/ws/alerts/');
@@ -106,6 +107,36 @@ const Header = ({ backButton, homeButton, setCallQueue }) => {
           <img id='homeButtonImage' src="/images/home (5).png" alt="Back" />
         </Link>
       )}
+
+<>
+      <Button position={'absolute'} left={'15%'} onClick={onOpen}>Switch Level</Button>
+
+      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Parking Level</ModalHeader>
+          <ModalBody>
+            <Select mb={4} placeholder='Select Parking Level'>
+              <option value='option1'>Level 1</option>
+              <option value='option2'>Level 2</option>
+              <option value='option3'>Level 3</option>
+            </Select>
+            {/* Use appropriate content here */}
+            <HStack justifyContent={'center'} width={'100%'} mt={7}>
+              <PinInput>
+                <PinInputField />
+                <PinInputField />
+                <PinInputField />
+                <PinInputField />
+              </PinInput>
+            </HStack>
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>Login</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
     </header>
   );
 };

@@ -1,3 +1,4 @@
+import { VStack, Box, Button, Text, HStack } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 
 const CallBlock = ({ slotNo, onDone, uniqueId, startTimeStamp }) => {
@@ -66,19 +67,39 @@ const CallBlock = ({ slotNo, onDone, uniqueId, startTimeStamp }) => {
   };
 
   return (
-    <div className={`call-block ${countdown > 0 ? 'blurred' : ''}`}>
-      {/* <div className={`background ${countdown > 0 ? 'blurred' : ''}`}> */}
-        <div className="parkingNo">{slotNo}</div>
-      {/* </div> */}
-      <div className="timer-and-button">
-        <div className="timer">{countdown > 0 ? formatTime(countdown) : formatTime(elapsedTime)}</div>
+    <VStack
+      className={`call-block ${countdown > 0 ? 'blurred' : ''}`}
+      // spacing={2}
+      bg={'white'}
+      paddingInline={10}
+      pb={10}
+      pt={4}
+      height={['65vw','38vw','35vw','30vw']}
+      justify={'space-between'}
+      borderRadius={'3xl'}
+      // boxShadow="8px 8px 19.5px 0px rgba(0, 0, 0, 0.25)"
+      boxShadow={'xl'}
+      transition="filter 0.3s ease-in-out"
+      filter={countdown > 0 ? 'blur(3px)' : 'none'}
+    >
+      <Text fontSize={['4rem','5rem','5.5rem','8xl']} mt={3} color="#1F3453" fontWeight="bold">
+        {slotNo}
+      </Text>
+      <HStack width={'100%'} justifyContent={'space-between'} alignItems="center">
+        <Box className="timer" color="#C60000" fontSize="3xl" textAlign="center">
+          {countdown > 0 ? formatTime(countdown) : formatTime(elapsedTime)}
+        </Box>
         {countdown > 0 ? (
-          <button className='undoButton' onClick={handleUndo}>Undo</button>
+          <Button className="undoButton" onClick={handleUndo} fontSize="lg" size={'lg'}color="white" borderRadius="xl" backgroundColor="#1F3453">
+            Undo
+          </Button>
         ) : (
-          <button className='doneButton' onClick={handleDone}>Done</button>
+          <Button className="doneButton" onClick={handleDone} size={'lg'} fontSize={'2xl'} fontWeight={'normal'} color="white" backgroundColor="#F7921C" borderRadius="xl" _hover={{ backgroundColor: '#e6811b' }}>
+            Done
+          </Button>
         )}
-      </div>
-    </div>
+      </HStack>
+    </VStack>
   );
 };
 
